@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe App</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: antiquewhite;
+            background-image: url(f"C:\Users\komal\OneDrive\Desktop\RPPOOP\templates\bg.png");
+        }
+        .header {
+            background-color:pink;
+            color: black;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            font-size: 25px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+            width: 200px;
+            vertical-align: top;
+        }
+        .recipe-title {
+            font-size: 16px;
+            line-height: 1.2;
+            max-height: 3.6em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+        }
+        img {
+            display: block;
+            margin: 0 auto;
+            max-width: 200px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: blue;
+            text-decoration: underline;
+        }
+        .home-button {
+            display: inline-block;
+            margin-top: 10px;
+            margin-left: 10px;
+            color: blue;
+            text-decoration: underline;
+        }
+        .recipe-details {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 2px solid #ccc;
+            padding: 20px;
+            background-color: #fff;
+        }
+        .section-title {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .ingredient-list, .instruction-list {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="header";background-image:url("C:\Users\komal\OneDrive\Desktop\RPPOOP\templates\bg.png");>
+        <h1><i> YUMMY YUMMY</i></h1>
+    </div>
+    <center>WHAT TO COOK TODAY !?</center>
+    <form method="POST" action="/">
+        <input type="text" name="search_query" placeholder="Search for recipes" width="300px">
+        <input type="submit" value="Search">
+        <a href="/home" class="home-button">Home</a>
+    </form>
+
+    {% if recipes %}
+    <h2><i>Results for "{{ search_query }}"<i> </h2>
+    <h2><center><i> Here are some of them :<i></center><h2>
+    <ul>
+        {% for recipe in recipes %}
+        <li>
+            <h3 class="recipe-title">{{ recipe.title }}</h3>
+            {% if recipe.image %}
+            <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
+            {% endif %}
+            <a href="{{ url_for('view_recipe', recipe_id=recipe.id, search_query=search_query) }}">View</a>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No recipes found.</p>
+    {% endif %}
+    <h4><center><i><u>NOTE:Write the correct spellings.</u><i></center><h4>
+</body>
+</html>
